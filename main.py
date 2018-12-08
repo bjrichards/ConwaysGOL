@@ -25,21 +25,29 @@ class Grid(Frame):
         self.redPop = 0
         self.bluePop = 0
         self.canvas = Canvas(self)
-        self.draw()
-        # self.canvas.pack(fill=BOTH, expand=1)
+        self.updateFlag = True
+        self.lastTime = int(round(time.time() * 1000))
+        self.do_one_frame()
 
-    def initUI(self):
+    def do_one_frame(self):
+        newTime = int(round(time.time() * 2000))
+        if (newTime - self.lastTime) > 100:
+            self.updateFlag = True;
+            self.lastTime = newTime
 
-        self.draw()
-        canvas.pack(fill=BOTH, expand=1)
+        if self.updateFlag == True:
+            self.ForwardOneGen()
+            self.updateFlag = False
+            self.draw()
+            self.update_idletasks()
 
+        self.after(50, self.do_one_frame)
         return
 
     def draw(self):
         self.canvas.destroy()
         self.canvas = Canvas(self)
-        self.generation = self.generation + 1
-        self.canvas.pack(fill=BOTH, expand=1)
+        # self.canvas.pack(fill=BOTH, expand=1)
         frame1 = Frame(self.canvas, width = 900, height=900, bg="")
         for i in range(0, boardWidth, 1):
             for j in range(0, boardHeight, 1):
@@ -65,16 +73,16 @@ class Grid(Frame):
         frame4.pack(side="right")
         self.canvas.pack(fill=BOTH, expand=1)
 
+        # self.update_idletasks()
+        # self.after(100, self.draw)
 
-
-        self.ForwardOneGen()
-        self.after(500, self.draw)
         return
 
     def ForwardOneGen(self):
         tempBoard = self.board
         self.bluePop = 0
         self.redPop = 0
+        self.generation = self.generation + 1
         for i in range(0, boardWidth):
             for j in range(0, boardHeight):
                 neighbors = 0
@@ -150,6 +158,7 @@ class Grid(Frame):
                     else:
                         tempBoard[i][j] = randint(1,2)
         self.board = tempBoard
+        # print("hi")
         return
 
 def main():
