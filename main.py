@@ -4,7 +4,7 @@
 # Created on Monday December 3, 2018
 
 # Imports
-from tkinter import Tk, Canvas, Frame, BOTH
+from tkinter import Tk, Canvas, Frame, BOTH, Label, X, Y
 from random import randint
 import time
 
@@ -21,55 +21,60 @@ class Grid(Frame):
         self.board = board
         self.master.title("Conway's Game of Life")
         self.pack(fill=BOTH, expand=1)
-
+        self.generation = 0
+        self.redPop = 0
+        self.bluePop = 0
         self.canvas = Canvas(self)
         self.draw()
-        self.canvas.pack(fill=BOTH, expand=1)
-        # self.initUI()
-
-        # while(True):
-        # self.DrawCells([])
+        # self.canvas.pack(fill=BOTH, expand=1)
 
     def initUI(self):
 
-
-
-        # for i in range(0, self.w, 80):
-        #     canvas.create_line(i, 0, i, self.h, fill="black")
-        #
-        # # Creates all horizontal lines at intevals of 100
-        # for i in range(0, self.h, 65):
-        #     canvas.create_line(0, i, self.w, i, fill="black")
-
-        # self.ForwardOneGen(board)
         self.draw()
         canvas.pack(fill=BOTH, expand=1)
 
-        # self.after(1000, self.initUI)
         return
-    # def UpdateUI(self, boardself)
 
     def draw(self):
         self.canvas.destroy()
         self.canvas = Canvas(self)
+        self.generation = self.generation + 1
         self.canvas.pack(fill=BOTH, expand=1)
+        frame1 = Frame(self.canvas, width = 900, height=900, bg="")
         for i in range(0, boardWidth, 1):
             for j in range(0, boardHeight, 1):
                 if self.board[int(i)][int(j)] == 1:
                     self.canvas.create_rectangle(i*10, j * 10, i * 10 + 10, j * 10 + 10, outline="black",fill="blue")
                 elif self.board[int(i)][int(j)] == 2:
                     self.canvas.create_rectangle(i*10, j * 10, i * 10 + 10, j * 10 + 10, outline="black",fill="red")
-                # elif self.board[int(i)][int(j)] == 0:
-                #     self.canvas.create_rectangle(i*10, j * 10, i * 10 + 10, j * 10 + 10, outline="white",fill="white")
+        frame1.pack(side="top")
 
-        # self.canvas.pack(fill=BOTH, expand=1)
-        print("updated")
+        frame2 = Frame(self.canvas, width = 150, height=100, bg = "")
+        Label(self.canvas, text="Generation: ", fg="black", font=("Helvetica", 16)).pack(side="left")
+        Label(self.canvas, text=str(self.generation), fg="black", font=("Helvetica", 16)).pack(side="left")
+        frame2.pack(side="left")
+
+        frame3 = Frame(self.canvas, width = 150, height=100, bg = "")
+        Label(self.canvas, text="Red Population: ", fg="black", font=("Helvetica", 16)).pack(side="left")
+        Label(self.canvas, text=str(self.redPop), fg="black", font=("Helvetica", 16)).pack(side="left")
+        frame3.pack(side="left")
+
+        frame4 = Frame(self.canvas, width = 150, height=100, bg = "")
+        Label(self.canvas, text="Blue Population: ", fg="black", font=("Helvetica", 16)).pack(side="left")
+        Label(self.canvas, text=str(self.bluePop), fg="black", font=("Helvetica", 16)).pack(side="left")
+        frame4.pack(side="right")
+        self.canvas.pack(fill=BOTH, expand=1)
+
+
+
         self.ForwardOneGen()
-        self.after(50, self.draw)
+        self.after(500, self.draw)
         return
 
     def ForwardOneGen(self):
         tempBoard = self.board
+        self.bluePop = 0
+        self.redPop = 0
         for i in range(0, boardWidth):
             for j in range(0, boardHeight):
                 neighbors = 0
@@ -137,8 +142,10 @@ class Grid(Frame):
                     tempBoard[i][j] = 0
                 elif neighbors == 3 and (self.board[i][j] is 0 or self.board[i][j] is 0):
                     if red is 2 or red is 3:
+                        self.redPop = self.redPop + 1
                         tempBoard[i][j] = 2
                     elif blue is 2 or blue is 3:
+                        self.bluePop = self.bluePop + 1
                         tempBoard[i][j] = 1
                     else:
                         tempBoard[i][j] = randint(1,2)
@@ -158,12 +165,11 @@ def main():
                 board[i].append(1)
             else:
                 board[i].append(2)
-            # board[i].append(cell)
 
     root = Tk()
 
     w = 900 # width for the Tk root
-    h = 900 # height for the Tk root
+    h = 1000 # height for the Tk root
 
     # get screen width and height
     ws = root.winfo_screenwidth() # width of the screen
