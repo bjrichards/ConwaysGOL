@@ -8,8 +8,8 @@ from tkinter import Tk, Canvas, Frame, BOTH, Label, X, Y
 from random import randint
 import time
 
-boardWidth = 90
-boardHeight = 90
+boardWidth = 192
+boardHeight = 98
 
 class Grid(Frame):
 
@@ -31,7 +31,7 @@ class Grid(Frame):
 
     def do_one_frame(self):
         newTime = int(round(time.time() * 2000))
-        if (newTime - self.lastTime) > 100:
+        if (newTime - self.lastTime) > 500:
             self.updateFlag = True;
             self.lastTime = newTime
 
@@ -48,7 +48,7 @@ class Grid(Frame):
         self.canvas.destroy()
         self.canvas = Canvas(self)
         # self.canvas.pack(fill=BOTH, expand=1)
-        frame1 = Frame(self.canvas, width = 900, height=900, bg="")
+        frame1 = Frame(self.canvas, width = 900, height=980, bg="")
         for i in range(0, boardWidth, 1):
             for j in range(0, boardHeight, 1):
                 if self.board[int(i)][int(j)] == 1:
@@ -155,8 +155,6 @@ class Grid(Frame):
                     elif blue is 2 or blue is 3:
                         self.bluePop = self.bluePop + 1
                         tempBoard[i][j] = 1
-                    else:
-                        tempBoard[i][j] = randint(1,2)
         self.board = tempBoard
         # print("hi")
         return
@@ -177,8 +175,8 @@ def main():
 
     root = Tk()
 
-    w = 900 # width for the Tk root
-    h = 1000 # height for the Tk root
+    w = 1920 # width for the Tk root
+    h = 1080 # height for the Tk root
 
     # get screen width and height
     ws = root.winfo_screenwidth() # width of the screen
