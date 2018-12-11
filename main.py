@@ -46,7 +46,7 @@ class Grid(Frame):
 
     def draw(self):
         self.canvas.destroy()
-        self.canvas = Canvas(self)
+        self.canvas = Canvas(self, bg="black")
         # self.canvas.pack(fill=BOTH, expand=1)
         frame1 = Frame(self.canvas, width = 900, height=980, bg="")
         for i in range(0, boardWidth, 1):
@@ -58,18 +58,18 @@ class Grid(Frame):
         frame1.pack(side="top")
 
         frame2 = Frame(self.canvas, width = 150, height=100, bg = "")
-        Label(self.canvas, text="Generation: ", fg="black", font=("Helvetica", 16)).pack(side="left")
-        Label(self.canvas, text=str(self.generation), fg="black", font=("Helvetica", 16)).pack(side="left")
+        Label(self.canvas, text="Generation: ", fg="white", font=("Helvetica", 16), bg="black").pack(side="left")
+        Label(self.canvas, text=str(self.generation), fg="white", font=("Helvetica", 16), bg="black").pack(side="left")
         frame2.pack(side="left")
 
-        frame3 = Frame(self.canvas, width = 150, height=100, bg = "")
-        Label(self.canvas, text="Red Population: ", fg="black", font=("Helvetica", 16)).pack(side="left")
-        Label(self.canvas, text=str(self.redPop), fg="black", font=("Helvetica", 16)).pack(side="left")
+        frame3 = Frame(self.canvas, width = 130, height=100, bg = "")
+        Label(self.canvas, text="Red Population: ", fg="white", font=("Helvetica", 16), bg="black").pack(side="left")
+        Label(self.canvas, text=str(self.redPop), fg="white", font=("Helvetica", 16), bg="black").pack(side="left")
         frame3.pack(side="left")
 
         frame4 = Frame(self.canvas, width = 150, height=100, bg = "")
-        Label(self.canvas, text="Blue Population: ", fg="black", font=("Helvetica", 16)).pack(side="left")
-        Label(self.canvas, text=str(self.bluePop), fg="black", font=("Helvetica", 16)).pack(side="left")
+        Label(self.canvas, text="Blue Population: ", fg="white", font=("Helvetica", 16), bg="black").pack(side="left")
+        Label(self.canvas, text=str(self.bluePop), fg="white", font=("Helvetica", 16), bg="black").pack(side="left")
         frame4.pack(side="right")
         self.canvas.pack(fill=BOTH, expand=1)
 
@@ -156,7 +156,7 @@ class Grid(Frame):
                         self.bluePop = self.bluePop + 1
                         tempBoard[i][j] = 1
         self.board = tempBoard
-        # print("hi")
+
         return
 
 def main():
@@ -175,7 +175,7 @@ def main():
 
     root = Tk()
 
-    w = 1920 # width for the Tk root
+    w = 1926 # width for the Tk root
     h = 1080 # height for the Tk root
 
     # get screen width and height
@@ -183,7 +183,7 @@ def main():
     hs = root.winfo_screenheight() # height of the screen
 
     # calculate x and y coordinates for the Tk root window
-    x = (ws/2) - (w/2)
+    x = (ws/2) - (w/2)-8
     y = (hs/2) - (h/2)
 
     newBoard = Grid(w, h, board)
