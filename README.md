@@ -15,4 +15,4 @@ TKinter
 ```
 
 ## To Do
-This program was written quickly as a prototype, therefore it lacks commenting, strong structuring, and is not optimized in any way. So, over time when I have free time I will be cleaning up the code, adding comments when needed, and working to increase framerates/generation rates when the number of cells (and therefore the number or drawn objects) reach a high number.
+This program was written quickly as a prototype, therefore it lacks commenting, strong structuring, and is not optimized in any way. So, over time when I have free time I will be cleaning up the code, adding comments when needed, and working to increase framerates/generation rates when the number of cells (and therefore the number of drawn objects) reach a high number.
